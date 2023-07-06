@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,10 @@ Route::delete('/tags/{id}',[TagsController::class , 'destroy'])
     ->name('tags.destroy');
 
 Route::resource('/questions',QuestionsController::class);
+
+Route::get('profile' , [UserProfileController::class , 'edit'])
+    ->name('profile')
+    ->middleware('auth');
+Route::put('profile' , [UserProfileController::class , 'update'])
+    ->middleware('auth');
 
