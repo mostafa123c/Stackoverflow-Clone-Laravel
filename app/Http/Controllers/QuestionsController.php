@@ -61,10 +61,12 @@ class QuestionsController extends Controller
      */
     public function show(string $id)
     {
-        $question = Question::leftjoin('users' , 'questions.user_id' , '=' , 'users.id')
-            ->select('questions.*' , 'users.name as user_name')
-            ->findOrFail($id);
-        return view('questions.show' , compact('question'));
+//        leftjoin('users' , 'questions.user_id' , '=' , 'users.id')
+//            ->select('questions.*' , 'users.name as user_name')
+
+        $question = Question::findOrFail($id);
+        $answers = $question->answers()->with('user')->latest()->get();
+        return view('questions.show' , compact('question' , 'answers'));
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\TagsController;
@@ -48,9 +49,16 @@ Route::delete('/tags/{id}',[TagsController::class , 'destroy'])
 
 Route::resource('/questions',QuestionsController::class);
 
+
+
 Route::get('profile' , [UserProfileController::class , 'edit'])
     ->name('profile')
     ->middleware('auth');
 Route::put('profile' , [UserProfileController::class , 'update'])
     ->middleware('auth');
 
+
+
+Route::post('answers' , [AnswersController::class , 'store'])
+    ->name('answers.store')
+    ->middleware('auth');
