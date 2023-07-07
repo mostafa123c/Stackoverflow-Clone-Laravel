@@ -20,7 +20,7 @@
            <label for="description">Question Description</label>
            <div>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5">{{old('description')}}</textarea>
-               @error('title')
+               @error('description')
                <div class="invalid-feedback">{{ $message }}</div>
                @enderror
            </div>
