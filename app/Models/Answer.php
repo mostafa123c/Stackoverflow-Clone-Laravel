@@ -9,6 +9,12 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'question_id',
+        'user_id',
+        'description',
+    ];
+
     //Reverse One-to many relationship (Answer belongs to a question)
     public function question()
     {
