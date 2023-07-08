@@ -16,6 +16,15 @@
                     Asked: {{ $question->created_at->diffForHumans() }}, By: {{ $question->user->name }}
                 </div>
                 <p class="card-text">{{ $question->description  }}</p>
+                <div>
+                    Tags:
+                    <ul class="inline-list">
+                    @foreach($question->tags as $tag)
+                        <li>{{ $tag->name }}</li>
+                    @endforeach
+                    </ul>
+                </div>
+
             </div>
         </div>
 
@@ -23,12 +32,31 @@
             <h3>{{ $answers->count() }} Answers</h3>
             @forelse($answers as $answer )
                 <div class="card mb-3" >
+                    @if($answer->best_answer == 1)
+                       <span class="badge bg-success">BEST</span>
+                    @endif
                     <div class="card-body">
                         <p class="card-text">{{ $answer->description  }}</p>
                         <div class="text-muted mb-4">
                             {{ $answer->created_at->diffForHumans() }},
                             By: {{ $answer->user->name }}
                         </div>
+                        @auth()
+                            @if( $answer->best_answer == 0 && Auth::id() == $question->user_id)
+                                <div class="card-footer">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <form action="{{route('answers.best' , $answer->id)}}" method="post" >
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-success">Mark as best Answer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endauth
+
                     </div>
                 </div>
             @empty

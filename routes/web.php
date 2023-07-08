@@ -62,3 +62,7 @@ Route::put('profile' , [UserProfileController::class , 'update'])
 Route::post('answers' , [AnswersController::class , 'store'])
     ->name('answers.store')
     ->middleware('auth');
+
+Route::put('answers/{id}/best' , [AnswersController::class , 'best'])
+    ->name('answers.best')
+    ->middleware('auth');
