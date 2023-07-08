@@ -26,6 +26,8 @@
 
                 </div>
                 <p class="card-text">{{ Str::words($question->description , 20 ) }}</p>
+                <p>Tags: {{implode(', ' , $question->tags()->pluck('name')->toArray())}}</p>
+
             </div>
             @if(Auth::id() == $question->user_id)
             <div class="card-footer">
@@ -46,7 +48,7 @@
             @endif
     @endforeach
 
-        {{ $questions->links() }}
+        {{ $questions->withQueryString()->links() }}
 
 {{--    <div class="d-flex justify-content-center">--}}
 {{--        {!! $questions->links() !!}--}}
