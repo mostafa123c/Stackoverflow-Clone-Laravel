@@ -8,23 +8,11 @@
         @csrf
         @method('PUT')
         <div class="form-group mb-3">
-            <label for="title">Question Title</label>
-            <div>
-                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title"  name="title" value="{{old('title' , $question->title)}}">
-                @error('title')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+            <x-form-input :value="$question->title" id="title" name="title" label="Question Title" />
         </div>
 
         <div class="form-group mb-3">
-            <label for="description">Question Description</label>
-            <div>
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5">{{old('description' , $question->description)}}</textarea>
-                @error('title')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+            <x-form-textarea :value="$question->description" id="description" name="description" label="Question Description" />
         </div>
 
         <div class="form-group mb-3">

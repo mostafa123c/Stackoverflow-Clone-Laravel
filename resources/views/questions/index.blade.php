@@ -8,12 +8,16 @@
 
 @section('content')
 
+    <x-alert/>
 
-    @if(session()->has('success'))
-        <div class="alert alert-success">
-            {{ session()->get('success') }}
-        </div>
-    @endif
+{{--    <x-message type="warning">--}}
+{{--        <x-slot name="title">--}}
+{{--            Warning--}}
+{{--        </x-slot>--}}
+{{--        <p>This is a warning message</p>--}}
+{{--    </x-message>--}}
+
+
 
     @foreach($questions as $question)
         <div class="card mb-3" >
