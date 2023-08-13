@@ -1,8 +1,8 @@
 @extends('layouts.default')
 
 @section('title')
-    Questions List
-    <a href="{{route('questions.create')}}" class="btn btn-outline-primary btn-xs">Create New Question</a>
+    {{ trans('Questions') }}
+    <a href="{{route('questions.create')}}" class="btn btn-outline-primary btn-xs">{{ __('New Question') }}</a>
 @endsection
 
 
@@ -24,9 +24,9 @@
             <div class="card-body">
                 <h5 class="card-title"><a href="{{route('questions.show' , $question->id) }}">{{ $question->title }}</a></h5>
                 <div class="text-muted mb-4">
-                    Asked: {{ $question->created_at->diffForHumans() }},
-                    By: {{ $question->user->name }}
-                    Answers: {{ $question->answers_count }}
+                    @lang('Asked'): {{ $question->created_at->diffForHumans() }},
+                    {{ __('By') }}: {{ $question->user->name }}
+                    @lang('Answers'): {{ $question->answers_count }}
 
                 </div>
                 <p class="card-text">{{ Str::words($question->description , 20 ) }}</p>

@@ -1,11 +1,16 @@
 <!doctype html>
-<html lang="en">
-<head>
+<html lang="{{App::currentLocale()}}" dir="{{ App::currentLocale() == 'ar' ? 'rtl' : 'ltr' }}">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
+
+    @if(App::currentLocale() == 'ar')
+        <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.rtl.min.css')}}">
+    @else
+        <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
+    @endif
+
     <link rel="stylesheet" href="{{asset('css/headers.css')}}">
     <title>{{ config('app.name') }}</title>
     @stack('styles')
@@ -28,6 +33,17 @@
             <form method="get" action="{{route('questions.index')}}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" name="search" class="form-control" placeholder="Search..." aria-label="Search">
             </form>
+
+            <div class="dropdown text-end p-3">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" id="locale" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{__('Language')}}
+                </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="locale">
+                        <li><a class="dropdown-item" href="{{URL::current()}}?lang=ar">العربية</a></li>
+                        <li><a class="dropdown-item" href="{{URL::current()}}?lang=en">English</a></li>
+
+                    </ul>
+            </div>
 
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,6 +68,7 @@
         </header>
         @yield('content')
     </div>
+    <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     @stack('scripts')
 </body>
 </html>

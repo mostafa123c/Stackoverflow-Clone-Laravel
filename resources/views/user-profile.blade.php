@@ -14,7 +14,7 @@
         @method('PUT')
 
         <div class="form-group mb-3">
-            <label for="name">First Name</label>
+            <label for="name">{{__('First Name' ) }}</label>
             <div>
                 <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="name"  name="first_name" value="{{old('first_name' , $user->profile->first_name)}}">
                 @error('first_name')
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="name">Last Name</label>
+            <label for="name">{{__('Last Name') }}</label>
             <div>
                 <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"  name="last_name" value="{{old('last_name' , $user->profile->last_name)}}">
                 @error('last_name')
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="email">Email Address</label>
+            <label for="email">{{__('Email Address') }}</label>
             <div>
                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"  name="email" value="{{old('email' , $user->email)}}" disabled>
                 @error('email')
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="birthday">Birthday</label>
+            <label for="birthday">{{__('Birthday')}}</label>
             <div>
                 <input type="date" class="form-control @error('birthday') is-invalid @enderror" id="birthday"  name="birthday" value="{{old('birthday' , $user->profile->birthday)}}">
                 @error('birthday')
@@ -53,18 +53,18 @@
         </div>
 
              <div class="form-group mb-3">
-               <label for="name">Gender</label>
+               <label for="name">{{__('Gender')}}</label>
                <div>
                    <div class="form-check">
                        <input class="form-check-input" type="radio" name="gender" value="male" id="gender-male" @if($user->profile->gender == 'male') checked @endif>
                        <label class="form-check-label" for="gender-male">
-                           Male
+                           {{ __('Male') }}
                        </label>
                    </div>
                    <div class="form-check">
                        <input class="form-check-input" type="radio" name="gender" value="female" id="gender-female" @if($user->profile->gender == 'female') checked @endif>
                        <label class="form-check-label" for="gender-female">
-                           Female
+                           {{ __('Female') }}
                        </label>
                    </div>
                    @error('gender')
@@ -74,7 +74,7 @@
            </div>
 
             <div class="form-group mb-3">
-                <label for="city">City</label>
+                <label for="city">{{__('City') }}</label>
                 <div>
                     <input type="text" class="form-control @error('city') is-invalid @enderror" id="city"  name="city" value="{{old('city' , $user->profile->city)}}">
                     @error('city')
@@ -84,7 +84,7 @@
             </div>
 
             <div class="form-group mb-3">
-                <label for="country">Country</label>
+                <label for="country">{{__('Country') }}</label>
                 <div>
                     <select class="form-control @error('country') is-invalid @enderror" id="country"  name="country" >
                         <option value="">Select Country</option>
@@ -103,7 +103,7 @@
 
 
         <div class="form-group mb-3">
-            <label for="profile_photo">Profile Photo</label>
+            <label for="profile_photo">{{__('Profile Photo') }}</label>
             <div>
                 <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo"  name="profile_photo">
                 @error('profile_photo')
