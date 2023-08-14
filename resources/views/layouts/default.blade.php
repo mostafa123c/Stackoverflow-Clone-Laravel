@@ -24,10 +24,10 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-                <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
-                <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
-                <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
+                <li><a href="#" class="nav-link px-2 link-secondary">{{ __('Overview') }}</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis">{{ __('Inventory') }}</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis">{{ __('Customers') }}</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis">{{ __('Products') }}</a></li>
             </ul>
 
             <form method="get" action="{{route('questions.index')}}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -38,11 +38,22 @@
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" id="locale" data-bs-toggle="dropdown" aria-expanded="false">
                     {{__('Language')}}
                 </a>
-                    <ul class="dropdown-menu text-small" aria-labelledby="locale">
-                        <li><a class="dropdown-item" href="{{URL::current()}}?lang=ar">العربية</a></li>
-                        <li><a class="dropdown-item" href="{{URL::current()}}?lang=en">English</a></li>
+{{--                    <ul class="dropdown-menu text-small" aria-labelledby="locale">--}}
+{{--                        <li><a class="dropdown-item" href="{{URL::current()}}?lang=ar">العربية</a></li>--}}
+{{--                        <li><a class="dropdown-item" href="{{URL::current()}}?lang=en">English</a></li>--}}
 
-                    </ul>
+{{--                    </ul>--}}
+
+                <ul class="dropdown-menu text-small" aria-labelledby="locale">
+                    @foreach(LaravelLocalization::getSupportedLocales() as $code => $locale)
+                        <li>
+                            <a class="dropdown-item" rel="alternate" hreflang="{{ $code }}" href="{{ LaravelLocalization::getLocalizedURL($code, null, [], true) }}">
+                                {{ $locale['native'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+
             </div>
 
             <div class="dropdown text-end">

@@ -23,7 +23,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        $lang = request('lang' , config('app.locale'));
-        App::setLocale($lang);
     }
 }

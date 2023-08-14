@@ -12,5 +12,10 @@
     "Asked" : "تم السؤال",
     "Answers" : "الاجابة",
     "By" : "بواسطة",
-    "New Question" : "سؤال جديد"
+    "Language" : "اللغة",
+    "New Question" : "سؤال جديد",
+    "Overview": "نظرة عامة",
+    "Inventory": "المخزون",
+    "Customers": "العملاء",
+    "Products": "المنتجات"
 }
