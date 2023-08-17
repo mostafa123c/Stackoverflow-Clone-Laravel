@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswersController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\TagsController;
@@ -56,26 +57,28 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
     });
 
 
-
     Route::resource('/questions',QuestionsController::class);
 
 
+    Route::group(['middleware' => 'auth'] , function (){
 
-    Route::get('profile' , [UserProfileController::class , 'edit'])
-        ->name('profile')
-        ->middleware('auth');
-    Route::put('profile' , [UserProfileController::class , 'update'])
-        ->middleware('auth');
+        //Notifications
+        Route::get('notifications' , [NotificationsController::class , 'index'])
+            ->name('notifications');
 
+        //Profile
+        Route::get('profile' , [UserProfileController::class , 'edit'])
+            ->name('profile');
+        Route::put('profile' , [UserProfileController::class , 'update']);
 
+        //Answers
+        Route::post('answers' , [AnswersController::class , 'store'])
+            ->name('answers.store');
 
-    Route::post('answers' , [AnswersController::class , 'store'])
-        ->name('answers.store')
-        ->middleware('auth');
+        Route::put('answers/{id}/best' , [AnswersController::class , 'best'])
+            ->name('answers.best');
 
-    Route::put('answers/{id}/best' , [AnswersController::class , 'best'])
-        ->name('answers.best')
-        ->middleware('auth');
+    });
 
 });
 
