@@ -44,7 +44,7 @@
 
 {{--                    </ul>--}}
 
-                <ul class="dropdown-menu text-small" aria-labelledby="locale">
+                <ul class="me-2 dropdown-menu text-small" aria-labelledby="locale">
                     @foreach(LaravelLocalization::getSupportedLocales() as $code => $locale)
                         <li>
                             <a class="dropdown-item" rel="alternate" hreflang="{{ $code }}" href="{{ LaravelLocalization::getLocalizedURL($code, null, [], true) }}">
@@ -56,7 +56,9 @@
 
             </div>
 
-            <div class="dropdown text-end">
+            <x-notifications-menu />
+
+            <div class="ms-2 dropdown text-end">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
