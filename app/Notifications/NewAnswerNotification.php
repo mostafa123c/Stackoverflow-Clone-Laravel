@@ -34,10 +34,10 @@ class NewAnswerNotification extends Notification
     //Notification Channels (mail, database, broadcast (realtime), nexmo (sms), slack, and custom channels)
     public function via(object $notifiable): array
     {
-        $channels = ['database'];
-//        if(in_array('mail',$notifiable->notification_options) ){
-//            $channels[] = 'mail';
-//        }
+        $channels = ['database' , 'mail'];
+        if(in_array('mail',$notifiable->notification_options) ){
+            $channels[] = 'mail';
+        }
 //
 //        if(in_array('sms',$notifiable->notification_options) ){
 //            $channels[] = 'nexmo';
@@ -51,10 +51,27 @@ class NewAnswerNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        $message = new MailMessage;
+        $message
+            ->subject(__('New Answer'))
+            ->from('notify@example.com', 'Notifications')
+            ->greeting(__("Hello :name,", [
+                'name' => $notifiable->name
+            ]))
+            ->line(__(':user added answer to your question":question"', [
+                'user' => $this->user->name,
+                'question' => $this->question->title,
+            ]))
+            ->action(__('View Answer'), url(route('questions.show', $this->question->id)))
+            ->line(__('Thank you for using our application!'));
+//         ->view('mails.new-answer', [
+//             'notifiable' => $notifiable,
+//             'body' => (__(':user added answer to your question":question"', [
+//                 'user' => $this->user->name,
+//                 'question' => $this->question->title,
+//             ]))
+//         ]);
+        return $message;
     }
 
     /**
@@ -66,7 +83,7 @@ class NewAnswerNotification extends Notification
     {
         return [
            'title' => __('New Answer'),
-            'body' => __(':user added answer to your question ":question"',[
+            'body' => __(':user added answer to your question":question"',[
                 'user' => $this->user->name,
                 'question' => $this->question->title,
             ]),

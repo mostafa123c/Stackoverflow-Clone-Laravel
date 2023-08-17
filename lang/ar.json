@@ -19,5 +19,7 @@
     "Customers": "العملاء",
     "Products": "المنتجات",
     "New Answer": "إجابة جديدة",
-    "Notifications" : "الاشعارات"
- }
+    "View Answer": "عرض الإجابة",
+    "Notifications" : "الاشعارات",
+    ":user added answer to your question\":question\"": "قام :user بالإجابة على سؤالك \":question\""
+}
