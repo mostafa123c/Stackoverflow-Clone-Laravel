@@ -56,7 +56,9 @@
 
             </div>
 
+            @auth
             <x-notifications-menu />
+            @endauth
 
             <div class="ms-2 dropdown text-end">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,6 +84,10 @@
         @yield('content')
     </div>
     <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script>
+        const userId="{{Auth::id()}}"
+    </script>
+    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 </html>

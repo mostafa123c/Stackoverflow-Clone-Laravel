@@ -35,13 +35,13 @@ class NewAnswerNotification extends Notification
     //Notification Channels (mail, database, broadcast (realtime), nexmo --vonage(sms), slack, and custom channels)
     public function via(object $notifiable): array
     {
-        $channels = ['database' , 'mail' ,'vonage'];
+        $channels = ['database' , 'broadcast'];
         if(in_array('mail',$notifiable->notification_options) ){
-            $channels[] = 'mail';
+//            $channels[] = 'mail';
         }
 //
         if(in_array('sms',$notifiable->notification_options) ){
-            $channels[] = 'vonage';
+//            $channels[] = 'vonage';
         }
 
         return $channels;
@@ -109,6 +109,21 @@ class NewAnswerNotification extends Notification
             ->unicode();
 
         return $message;
+    }
+
+
+
+    public function toBroadcast($notifiable)
+    {
+        return [
+            'title' => __('New Answer'),
+            'body' => __(':user added answer to your question":question"', [
+                'user' => $this->user->name,
+                'question' => $this->question->title,
+            ]),
+            'image' => '',
+            'url' => route('questions.show', $this->question->id),
+        ];
     }
 
     /**
