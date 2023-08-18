@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\VonageMessage;
 use Illuminate\Notifications\Notification;
 
 class NewAnswerNotification extends Notification
@@ -31,17 +32,17 @@ class NewAnswerNotification extends Notification
      *
      * @return array<int, string>
      */
-    //Notification Channels (mail, database, broadcast (realtime), nexmo (sms), slack, and custom channels)
+    //Notification Channels (mail, database, broadcast (realtime), nexmo --vonage(sms), slack, and custom channels)
     public function via(object $notifiable): array
     {
-        $channels = ['database' , 'mail'];
+        $channels = ['database' , 'mail' ,'vonage'];
         if(in_array('mail',$notifiable->notification_options) ){
             $channels[] = 'mail';
         }
 //
-//        if(in_array('sms',$notifiable->notification_options) ){
-//            $channels[] = 'nexmo';
-//        }
+        if(in_array('sms',$notifiable->notification_options) ){
+            $channels[] = 'vonage';
+        }
 
         return $channels;
     }
@@ -90,6 +91,24 @@ class NewAnswerNotification extends Notification
             'image' => '',
             'url' => route('questions.show', $this->question->id),
         ];
+    }
+
+    /**
+     * Get the Nexmo / SMS representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
+
+    public function toVonage($notifiable)
+    {
+        $message = new VonageMessage();
+        $message->content(__('new answer on":question"', [
+            'question' => $this->question->title,
+        ]))
+            ->from('Vonage APIs')
+            ->unicode();
+
+        return $message;
     }
 
     /**

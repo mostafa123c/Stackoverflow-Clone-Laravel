@@ -63,11 +63,16 @@ class User extends Authenticatable implements MustVerifyEmail , HasLocalePrefere
             ->withDefault();
     }
 
-//    //if I don't have field email in users table(another name) , and I want to use email field to send notification
-//    public function routeNotificationForMail(): string
-//    {
-//        return $this->email; //name of field in users table
-//    }
+    //if I don't have field email in users table(another name) , and I want to use email field to send notification
+    public function routeNotificationForMail()
+    {
+        return $this->email; //name of field in users table
+    }
+
+    public function routeNotificationForVonage()
+    {
+        return $this->mobile; //name of field in users table
+    }
 
 //    //Notification Language
     public function preferredLocale(): string
