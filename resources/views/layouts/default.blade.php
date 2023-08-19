@@ -58,20 +58,26 @@
 
             @auth
             <x-notifications-menu />
-            @endauth
 
             <div class="ms-2 dropdown text-end">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <img src="{{ Auth::user()->photo_url }}" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+{{--                    <li><a class="dropdown-item" href="#">New project...</a></li>--}}
+{{--                    <li><a class="dropdown-item" href="#">Settings</a></li>--}}
+                    <li><a class="dropdown-item" href="{{route('profile')}}">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    <li><a class="dropdown-item" onclick="document.getElementById('logout').submit()" href="javascript:;">Sign out</a></li>
+                    <form action="{{ route('logout') }} " method="POST" id="logout" style="display: none">
+                        @csrf
+                    </form>
                 </ul>
             </div>
+                @else
+                <a href="{{route('login')}}" class="btn btn-outline-primary me-2">{{__('Login')}}</a>
+                <a href="{{route('register')}}" class="btn btn-primary">{{__('Sign-up')}}</a>
+                @endauth
         </div>
     </div>
 </header>
@@ -82,7 +88,24 @@
             <hr>
         </header>
         @yield('content')
+
+
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="notificationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="" class="rounded me-2" alt="...">
+                    <strong class="me-auto" id="notification-title"></strong>
+                    <small id="notification-time"></small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="notification-body">
+                </div>
+            </div>
+        </div>
+
+
     </div>
+
     <script src="{{asset('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script>
         const userId="{{Auth::id()}}"
