@@ -33,7 +33,8 @@
                 <p>Tags: {{implode(', ' , $question->tags()->pluck('name')->toArray())}}</p>
 
             </div>
-            @if(Auth::id() == $question->user_id)
+{{--            @if(Auth::id() == $question->user_id)--}}
+            @can('update' , $question)
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
                     <div>
@@ -49,7 +50,9 @@
                     </div>
                 </div>
             </div>
-            @endif
+            @endcan
+            {{--            @endif--}}
+        </div>
     @endforeach
 
         {{ $questions->withQueryString()->links() }}

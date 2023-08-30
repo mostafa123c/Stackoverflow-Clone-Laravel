@@ -8,12 +8,17 @@ use Illuminate\Support\Facades\Gate;
 
 class RolesController extends Controller
 {
+//    public function __construct()
+//    {
+//        $this->authorizeResource(Role::class);
+//    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        Gate::authorize('roles.view');
+//        Gate::authorize('roles.view');
+        $this->authorize('viewAny' , Role::class);
 
         $roles = Role::Paginate();
         return view('roles.index', compact('roles'));
@@ -24,7 +29,8 @@ class RolesController extends Controller
      */
     public function create()
     {
-        Gate::authorize('roles.create');
+//        Gate::authorize('roles.create');
+        $this->authorize('create' , Role::class);
 
         return view('roles.create', [
             'role' => new Role(),
@@ -36,7 +42,8 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('roles.create');
+//        Gate::authorize('roles.create');
+        $this->authorize('create' , Role::class);
 
         $request->validate([
             'name' => ['required' , 'string'],
@@ -61,9 +68,12 @@ class RolesController extends Controller
      */
     public function edit(string $id)
     {
-        Gate::authorize('roles.edit');
+//        Gate::authorize('roles.edit');
 
         $role = Role::findOrFail($id);
+
+        $this->authorize('update' , $role);
+
         return view('roles.edit', compact('role'));    }
 
     /**
@@ -71,7 +81,7 @@ class RolesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Gate::authorize('roles.edit');
+//        Gate::authorize('roles.edit');
 
         $request->validate([
             'name' => 'required|unique:roles,name,' . $id ,
@@ -79,6 +89,7 @@ class RolesController extends Controller
         ]);
 
         $role = Role::findOrFail($id);
+        $this->authorize('update' , $role);
         $role->update($request->all());
 
         return redirect()->route('roles.index')
@@ -90,7 +101,9 @@ class RolesController extends Controller
      */
     public function destroy(string $id)
     {
-        Gate::authorize('roles.delete');
+//        Gate::authorize('roles.delete');
+        $role = Role::findOrFail($id);
+        $this->authorize('delete' , $role);
 
         Role::destroy($id);
         return redirect()->route('roles.index')

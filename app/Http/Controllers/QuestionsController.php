@@ -116,14 +116,15 @@ class QuestionsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $question = Question::findOrFail($id);
+        $this->authorize('update' , $question);
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'in:open,closed',
             'tags' => 'required|array',
         ]);
-
-        $question = Question::findOrFail($id);
 
 
         DB::beginTransaction();
@@ -152,7 +153,8 @@ class QuestionsController extends Controller
      */
     public function destroy(string $id)
     {
-//        $question = Question::findOrFail($id);
+        $question = Question::findOrFail($id);
+        $this->authorize('delete' , $question);
 //        $question->delete();
         Question::destroy($id);
 
