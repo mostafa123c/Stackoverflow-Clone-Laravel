@@ -5,6 +5,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Middleware\Localization;
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
     });
 
 
-    Route::group(['middleware' => 'auth' , 'prefix' => 'tags' , 'as' => 'tags.'] , function () {
+    Route::group(['middleware' => ['auth' , 'user.type:admin,super-admin'] , 'prefix' => 'tags' , 'as' => 'tags.'] , function () {
 
         Route::get('',[TagsController::class , 'index'])
             ->name('index');
@@ -58,7 +59,11 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
     });
 
 
-    Route::resource('/questions',QuestionsController::class);
+    Route::resource('roles',RolesController::class)
+            ->middleware(['auth' , 'user.type:admin,super-admin']);
+
+
+    Route::resource('questions',QuestionsController::class);
 
 
     Route::group(['middleware' => 'auth'] , function (){

@@ -67,6 +67,11 @@ class User extends Authenticatable implements MustVerifyEmail , HasLocalePrefere
             ->withDefault();
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class , 'role_user');
+    }
+
     //if I don't have field email in users table(another name) , and I want to use email field to send notification
     public function routeNotificationForMail()
     {

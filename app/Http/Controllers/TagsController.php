@@ -6,6 +6,7 @@ use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -20,13 +21,21 @@ class TagsController extends Controller
 
     public function index()
     {
-        $tags = Tag::all();
+        //allows , denys
+//        if(!Gate::allows('tags.view')){
+//            abort(403);
+//        }
+        Gate::authorize('tags.view');
+
+        $tags = Tag::paginate();
         $user = auth::user();
         return view('tags.index' , compact('tags' , 'user'));
     }
 
     public function create()
     {
+        Gate::authorize('tags.create');
+
         return view('tags.create' , [
                 'tag' => new Tag(),
             ]);
@@ -61,6 +70,8 @@ class TagsController extends Controller
 
     public function edit($id)
     {
+        Gate::authorize('tags.edit');
+
         $tag = Tag::findOrFail($id);  //in case of fail abort 404
         return view('tags.edit' , compact('tag'));
     }
@@ -84,6 +95,7 @@ class TagsController extends Controller
 
     public function destroy($id)
     {
+        Gate::authorize('tags.delete');
         //1
 //        Tag::destroy($id);
 
