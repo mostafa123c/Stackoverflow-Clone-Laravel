@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnswersController;
+use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
@@ -71,6 +72,12 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
             ->name('profile');
         Route::put('profile' , [UserProfileController::class , 'update']);
 
+        //Change Password
+        Route::get('password/change' , [ChangePasswordController::class , 'create'])
+            ->name('password.change');
+        Route::post('password/change' , [ChangePasswordController::class , 'store']);
+
+
         //Answers
         Route::post('answers' , [AnswersController::class , 'store'])
             ->name('answers.store');
@@ -79,6 +86,7 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
             ->name('answers.best');
 
     });
+
 
 });
 
