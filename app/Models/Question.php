@@ -13,6 +13,10 @@ class Question extends Model
         'title', 'description', 'status', 'user_id',
     ];
 
+    protected $hidden = [
+        'updated_at',
+    ];
+
     //one-to many relationship (Question has many answers)
     public function answers()
     {

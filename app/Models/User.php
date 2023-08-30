@@ -47,6 +47,10 @@ class User extends Authenticatable implements MustVerifyEmail , HasLocalePrefere
         'notification_options' => 'json',
     ];
 
+    protected $appends = [
+        'photo_url',  //getPhotoUrlAttribute
+    ];
+
     public function questions()
     {
         return $this->hasMany(Question::class , 'user_id' , 'id');
