@@ -30,5 +30,6 @@ Route::apiResource('answers',AnswersController::class );
 Route::post('auth/tokens',[AuthenticationTokensController::class,'store']);
 Route::delete('auth/tokens/{token?}',[AuthenticationTokensController::class,'destroy'])
         ->middleware('auth:sanctum');
+Route::post('auth/register',[AuthenticationTokensController::class,'register']);
 
 

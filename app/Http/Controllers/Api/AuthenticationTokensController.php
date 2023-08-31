@@ -37,6 +37,7 @@ class AuthenticationTokensController extends Controller
         ], 401);
     }
 
+    //delete a token
     public function destroy($token = null)
     {
         $user = Auth::guard('sanctum')->user();
@@ -47,5 +48,28 @@ class AuthenticationTokensController extends Controller
         }
 
         return [];
+    }
+
+    //register a new user
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|min:5',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:7',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => strtolower($request->email),
+            'password' => Hash::make($request->password),
+        ]);
+
+        $token = $user->createToken('postman', ['*']);
+
+        return Response::json([
+            'token' => $token->plainTextToken,
+            'user' => $user,
+        ], 201);
     }
 }
