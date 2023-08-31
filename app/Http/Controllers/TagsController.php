@@ -25,7 +25,7 @@ class TagsController extends Controller
 //        if(!Gate::allows('tags.view')){
 //            abort(403);
 //        }
-        Gate::authorize('tags.view');
+        $this->authorize('viewAny' , Tag::class);
 
         $tags = Tag::paginate();
         $user = auth::user();
@@ -34,7 +34,7 @@ class TagsController extends Controller
 
     public function create()
     {
-        Gate::authorize('tags.create');
+        $this->authorize('create' , Tag::class);
 
         return view('tags.create' , [
                 'tag' => new Tag(),
@@ -43,6 +43,9 @@ class TagsController extends Controller
 
     public function store(TagRequest $request)
     {
+        $this->authorize('create' , Tag::class);
+
+        //1
 //        $request->validate([
 //            'name' => 'required|string|min:3|max:35|unique:tags,name',
 //        ]);
@@ -70,7 +73,7 @@ class TagsController extends Controller
 
     public function edit($id)
     {
-        Gate::authorize('tags.edit');
+        $this->authorize('update' , Tag::class);
 
         $tag = Tag::findOrFail($id);  //in case of fail abort 404
         return view('tags.edit' , compact('tag'));
@@ -84,6 +87,8 @@ class TagsController extends Controller
 //        ]);
 
         $tag = Tag::findOrFail($id);
+        $this->authorize('update' , $tag);
+
         $tag->update([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
@@ -95,7 +100,7 @@ class TagsController extends Controller
 
     public function destroy($id)
     {
-        Gate::authorize('tags.delete');
+        $this->authorize('delete' , Tag::class);
         //1
 //        Tag::destroy($id);
 

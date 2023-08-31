@@ -8,6 +8,12 @@ use Illuminate\Auth\Access\Response;
 
 class TagPolicy
 {
+    public function before(User $user, $ability)
+    {
+        if ($user->type == 'super-admin') {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      */

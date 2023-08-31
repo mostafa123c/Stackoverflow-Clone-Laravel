@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AnswersController extends Controller
 {
+
     public function store(Request $request)
     {
         $request->validate([
