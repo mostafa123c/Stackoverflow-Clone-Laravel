@@ -1,8 +1,17 @@
-@extends('layouts.default')
+<x-dashboard-layout>
 
-@section('title' , 'Edit Tag')
+    <x-slot name="title">
+        Edit Tag
+        <a href="/tags/create" class="btn btn-outline-dark btn-xs">Create New Tag</a>
 
-@section('content')
+    </x-slot>
+
+    <x-slot name="breadcrumb">
+        {{--        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>--}}
+        <li class="breadcrumb-item active">Tags</li>
+    </x-slot>
+
+    <x-alert/>
 
     @include('tags._form' , [
         'action' => '/tags/' . $tag->id,
@@ -10,4 +19,4 @@
         'tag' => $tag
     ])
 
-@endsection
+</x-dashboard-layout>

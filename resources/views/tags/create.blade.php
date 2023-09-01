@@ -1,12 +1,16 @@
-@extends('layouts.default')
+<x-dashboard-layout>
 
-{{--@push('styles')--}}
-{{--    <link rel="stylesheet" href="/css/app.css">--}}
-{{--@endpush--}}
+    <x-slot name="title">
+        Create Tags
+    </x-slot>
 
-@section('title' , 'Create Tag')
+    <x-slot name="breadcrumb">
+        {{--        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>--}}
+        <li class="breadcrumb-item active">Tags</li>
+    </x-slot>
 
-@section('content')
+    <x-alert/>
+
 
     @include('tags._form' , [
         'action' => '/tags',
@@ -14,4 +18,4 @@
 
     ])
 
-@endsection
+</x-dashboard-layout>

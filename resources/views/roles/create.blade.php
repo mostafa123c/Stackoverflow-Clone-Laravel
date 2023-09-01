@@ -1,20 +1,19 @@
-@extends('layouts.default')
+<x-dashboard-layout>
 
-@section('title')
-    Create New Role
-    <a class="btn btn-outline-dark" href="/roles/">HOME</a>
-@endsection
+    <x-slot name="title">
+        Create Role
+    </x-slot>
 
-{{-- @push('styles')
-<link rel="stylesheet" href="style.css">
-@endpush
-@push('scripts')
-@endpush --}}
+    <x-slot name="breadcrumb">
+        {{--        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>--}}
+        <li class="breadcrumb-item active">Roles</li>
+    </x-slot>
 
-@section('content')
+    <x-alert/>
 
-    @include('roles._form',[
-    'action' => route('roles.store'),
-    'update' => false
-    ])
-@endsection
+@include('roles._form',[
+'action' => route('roles.store'),
+'update' => false
+])
+
+</x-dashboard-layout>

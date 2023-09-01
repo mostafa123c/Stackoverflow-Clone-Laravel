@@ -1,14 +1,16 @@
-@extends('layouts.default')
-{{-- <x-dashboard-layout> --}}
-@section('title')
-    Roles
-    <a class="btn btn-outline-dark" href="/roles/create">Add New</a>
-    <!-- <form action="" class="mb-3">
-       <input  type="submit" value="" />
-   </form> -->
-@endsection
+<x-dashboard-layout>
 
-<x-alert />
+    <x-slot name="title">
+        Roles
+        <a href="{{route('roles.create')}}" class="btn btn-outline-dark btn-xs">Create New Role</a>
+    </x-slot>
+
+    <x-slot name="breadcrumb">
+        {{--        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>--}}
+        <li class="breadcrumb-item active">Roles</li>
+    </x-slot>
+
+    <x-alert/>
 
 {{-- @if(Auth::check())
 User: {{$user->name}}
@@ -63,7 +65,5 @@ User: {{$user->name}}
             }
         })
     </script>
-@endsection
 
-
-{{-- </x-dashboard-layout> --}}
+ </x-dashboard-layout>

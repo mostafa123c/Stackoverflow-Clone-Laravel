@@ -1,15 +1,21 @@
-@extends('layouts.default')
+<x-dashboard-layout>
 
-@section('title' )
-    Edit Role
-    <a class="btn btn-outline-dark" href="/roles/">Roles</a>
-@endsection
-@section('content')
+    <x-slot name="title">
+        Edit Role
+        <a href="{{route('roles.create')}}" class="btn btn-outline-dark btn-xs">Create New Role</a>
+    </x-slot>
 
-    @include('roles._form',[
-    'action' => route('roles.update', $role->id),
-    'update' => true
-    ])
+    <x-slot name="breadcrumb">
+        {{--        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>--}}
+        <li class="breadcrumb-item active">Roles</li>
+    </x-slot>
+
+    <x-alert/>
+
+@include('roles._form',[
+'action' => route('roles.update', $role->id),
+'update' => true
+])
 
 
-@endsection
+</x-dashboard-layout>

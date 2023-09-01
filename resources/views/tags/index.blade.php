@@ -1,23 +1,27 @@
-    @extends('layouts.default')
+<x-dashboard-layout>
 
-    @section('title')
-        Tags List
+    <x-slot name="title">
+        Tags
         <a href="/tags/create" class="btn btn-outline-dark btn-xs">Create New Tag</a>
-    @endsection
+    </x-slot>
+
+    <x-slot name="breadcrumb">
+{{--        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>--}}
+        <li class="breadcrumb-item active">Tags</li>
+    </x-slot>
+
+    <x-alert/>
+
+{{--        @if(session()->has('success'))--}}
+{{--            <div class="alert alert-success">--}}
+{{--                {{ session()->get('success') }}--}}
+{{--            </div>--}}
+{{--        @endif--}}
 
 
-    @section('content')
-
-
-        @if(session()->has('success'))
-            <div class="alert alert-success">
-                {{ session()->get('success') }}
-            </div>
-        @endif
-
-        @if(Auth::user())
-            User: {{ $user->name }}
-        @endif
+{{--        @if(Auth::user())--}}
+{{--            User: {{ $user->name }}--}}
+{{--        @endif--}}
 
         <table class="table">
             <thead>
@@ -66,5 +70,6 @@
         </script>
 
 
-    @endsection
+
+</x-dashboard-layout>
 

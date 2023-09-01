@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
@@ -28,9 +29,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified' ,'password.confirm'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class , 'index'] )
+    ->middleware(['auth', 'verified' ])
+    ->name('dashboard');
 
 
 Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'] , 'prefix' => LaravelLocalization::setLocale()], function () {
