@@ -106,9 +106,9 @@
             <!-- small box -->
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3>{{ $tags  }}</h3>
+                    <h3>{{ $sessions  }}</h3>
 
-                    <p>Tags</p>
+                    <p>Current Visitors</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
