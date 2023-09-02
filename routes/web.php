@@ -33,6 +33,14 @@ Route::get('/dashboard', [DashboardController::class , 'index'] )
     ->middleware(['auth', 'verified' ])
     ->name('dashboard');
 
+Route::get('/dashboard/chart', [DashboardController::class , 'chart'] )
+    ->middleware(['auth' ])
+    ->name('dashboard.chart');
+
+Route::get('/dashboard/chart/tags', [DashboardController::class , 'tagsChart'] )
+    ->middleware(['auth' ])
+    ->name('dashboard.chart.donut');
+
 
 Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'] , 'prefix' => LaravelLocalization::setLocale()], function () {
 
@@ -69,27 +77,27 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
 
     Route::group(['middleware' => 'auth'] , function (){
 
-        //Notifications
-        Route::get('notifications' , [NotificationsController::class , 'index'])
-            ->name('notifications');
+    //Notifications
+    Route::get('notifications' , [NotificationsController::class , 'index'])
+        ->name('notifications');
 
-        //Profile
-        Route::get('profile' , [UserProfileController::class , 'edit'])
-            ->name('profile');
-        Route::put('profile' , [UserProfileController::class , 'update']);
+    //Profile
+    Route::get('profile' , [UserProfileController::class , 'edit'])
+        ->name('profile');
+    Route::put('profile' , [UserProfileController::class , 'update']);
 
-        //Change Password
-        Route::get('password/change' , [ChangePasswordController::class , 'create'])
-            ->name('password.change');
-        Route::post('password/change' , [ChangePasswordController::class , 'store']);
+    //Change Password
+    Route::get('password/change' , [ChangePasswordController::class , 'create'])
+        ->name('password.change');
+    Route::post('password/change' , [ChangePasswordController::class , 'store']);
 
 
-        //Answers
-        Route::post('answers' , [AnswersController::class , 'store'])
-            ->name('answers.store');
+    //Answers
+    Route::post('answers' , [AnswersController::class , 'store'])
+        ->name('answers.store');
 
-        Route::put('answers/{id}/best' , [AnswersController::class , 'best'])
-            ->name('answers.best');
+    Route::put('answers/{id}/best' , [AnswersController::class , 'best'])
+        ->name('answers.best');
 
     });
 

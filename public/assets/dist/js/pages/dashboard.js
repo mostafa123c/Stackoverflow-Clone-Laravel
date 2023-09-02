@@ -120,7 +120,7 @@ $(function () {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'Digital Goods',
+        label: 'Questions',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -131,7 +131,7 @@ $(function () {
         data: [28, 48, 40, 19, 86, 27, 90]
       },
       {
-        label: 'Electronics',
+        label: 'Answers',
         backgroundColor: 'rgba(210, 214, 222, 1)',
         borderColor: 'rgba(210, 214, 222, 1)',
         pointRadius: false,
@@ -148,21 +148,27 @@ $(function () {
     maintainAspectRatio: false,
     responsive: true,
     legend: {
-      display: false
+      display: true
     },
     scales: {
       xAxes: [{
         gridLines: {
-          display: false
+          display: true
         }
       }],
       yAxes: [{
         gridLines: {
-          display: false
+          display: true
         }
       }]
     }
   }
+
+
+$.get('/dashboard/chart', function (data) {
+    salesChartData.labels = data.labels;
+    salesChartData.datasets[0].data = data.questions;
+    salesChartData.datasets[1].data = data.answers;
 
   // This will get the first returned node in the jQuery collection.
   // eslint-disable-next-line no-unused-vars
@@ -171,6 +177,7 @@ $(function () {
     data: salesChartData,
     options: salesChartOptions
   })
+});
 
   // Donut Chart
   var pieChartCanvas = $('#sales-chart-canvas').get(0).getContext('2d')
@@ -189,11 +196,15 @@ $(function () {
   }
   var pieOptions = {
     legend: {
-      display: false
+      display: true
     },
     maintainAspectRatio: false,
     responsive: true
   }
+
+  $.get('/dashboard/chart/tags', function (data) {
+    pieData.labels = data.labels;
+    pieData.datasets[0].data = data.dataset;
   // Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.
   // eslint-disable-next-line no-unused-vars
@@ -202,6 +213,7 @@ $(function () {
     data: pieData,
     options: pieOptions
   })
+});
 
   // Sales graph chart
   var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d')
