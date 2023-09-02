@@ -9,6 +9,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Jenssegers\Agent\Agent;
+
 
 class DashboardController extends Controller
 {
@@ -20,6 +22,12 @@ class DashboardController extends Controller
         $tags = Tag::count();
         $roles = Tag::count();
         $sessions = DB::table('sessions')->count();
+
+        $agent = new Agent();
+        $agent->setUserAgent(DB::table('sessions')->first()->user_agent);
+//        echo $agent->browser();
+//        echo $agent->version($agent->browser());
+//        echo $agent->platform();
 
         return view('dashboard.index' , compact('users' , 'questions' , 'answers' , 'tags' , 'roles' , 'sessions'));
     }
