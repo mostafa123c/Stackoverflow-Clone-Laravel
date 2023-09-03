@@ -14,6 +14,10 @@ use Jenssegers\Agent\Agent;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth' , 'user.type:admin,super-admin']);
+    }
     public function index()
     {
         $users = User::count();
