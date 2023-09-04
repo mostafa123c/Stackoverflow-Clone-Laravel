@@ -11,4 +11,10 @@ return [
     'roles.create' => 'Create new roles',
     'roles.edit' => 'Edit roles',
     'roles.destroy' => 'Delete  roles',
+    //Admins
+    'admins.view' => 'View admins',
+    'admins.create' => 'Create new admins',
+    'admins.edit' => 'Edit admins',
+    'admins.destroy' => 'Delete  admins',
+
 ];

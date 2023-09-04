@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\DashboardController;
@@ -73,6 +74,9 @@ Route::group(['middleware' => ['localeSessionRedirect', 'localizationRedirect', 
 
 
     Route::resource('questions',QuestionsController::class);
+
+    Route::resource('admins' , AdminsController::class)
+        ->middleware(['auth' , 'user.type:super-admin']);
 
 
     Route::group(['middleware' => 'auth'] , function (){

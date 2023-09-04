@@ -7,12 +7,18 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
+    public function before(User $user, $ability)
+    {
+        if ($user->type == 'super-admin') {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasAbility('admins.view');
     }
 
     /**
@@ -20,7 +26,7 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        //
+        return $user->hasAbility('admins.view');
     }
 
     /**
@@ -28,7 +34,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasAbility('admins.create');
     }
 
     /**
@@ -36,7 +42,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        //
+        return $user->hasAbility('admins.edit');
     }
 
     /**
@@ -44,7 +50,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model): bool
     {
-        //
+        return $user->hasAbility('admins.delete');
     }
 
     /**
@@ -52,7 +58,6 @@ class UserPolicy
      */
     public function restore(User $user, User $model): bool
     {
-        //
     }
 
     /**
@@ -60,6 +65,5 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): bool
     {
-        //
     }
 }

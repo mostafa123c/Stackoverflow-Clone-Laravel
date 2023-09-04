@@ -3,6 +3,7 @@
 
 use App\Models\Role;
 use App\Models\Tag;
+use App\Models\User;
 
 return [
     [
@@ -24,4 +25,12 @@ return [
         'icon' => 'fas fa-user-shield',
         'ability' => ['viewAny' , Role::class],
     ],
+
+    [
+        'title' => 'Admins',
+        'route' => 'admins.index',
+        'icon' => 'fas fa-user-shield',
+        'ability' => ['viewAny' , User::class],
+    ],
+
 ];
