@@ -31,7 +31,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class , 'index'] )
-    ->middleware(['auth', 'verified' ])
+    ->middleware(['auth' ])
     ->name('dashboard');
 
 Route::get('/dashboard/chart', [DashboardController::class , 'chart'] )

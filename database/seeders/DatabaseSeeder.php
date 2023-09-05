@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 //            TagesTableSeeder::class,
 //            UsersTableSeeder::class,
 //        ]);
-//        $this->call(TagesTableSeeder::class);
-//        $this->call(UsersTableSeeder::class);
+        $this->call(TagesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
     }
 }

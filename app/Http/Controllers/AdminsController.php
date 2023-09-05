@@ -83,7 +83,11 @@ class AdminsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $this->authorize('update' , User::class);
+
+        $admin = User::findOrFail($id);
+        $roles = Role::all();
+        return view('admins.edit' , compact('admin' , 'roles'));
     }
 
     /**
@@ -91,7 +95,28 @@ class AdminsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->authorize('update' , User::class);
+
+        $request->validate([
+            'type' => 'required|in:admin,super-admin',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $admin = User::findOrFail($id);
+
+        DB::beginTransaction();
+        try{
+            $admin->update([
+                'type' => $request->type,
+            ]);
+            $admin->roles()->sync($request->role_id);
+            DB::commit();
+        }catch (\Throwable $e){
+            DB::rollback();
+            throw $e;
+        }
+
+        return redirect()->route('admins.index')->with('success' , 'Admin updated successfully');
     }
 
     /**
@@ -99,6 +124,11 @@ class AdminsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->authorize('delete' , User::class);
+
+        $admin = User::findOrFail($id);
+        $admin->delete();
+
+        return redirect()->route('admins.index')->with('success' , 'Admin deleted successfully');
     }
 }
